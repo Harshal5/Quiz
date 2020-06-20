@@ -1,0 +1,41 @@
+<%- include("partials/header") -%>
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4"><%= question %></h1>
+
+      
+      <p class="lead">
+        <!-- <ul>
+            <li><%= option1 %></li>
+            <li><%= option2 %></li>
+            <li><%= option3 %></li>
+            <li><%= option4 %></li>
+        </ul> -->
+        <form action="/quiz/<%= userId %>/<%= questionId %>" method="POST">
+        <label class="container"><%= option1 %>
+            <input type="radio" name="option" value="<%= option1 %>">
+            <span class="checkmark"></span>
+          </label>
+          <label class="container"><%= option2 %>
+            <input type="radio" name="option" value="<%= option2 %>">
+            <span class="checkmark"></span>
+          </label>
+          <label class="container"><%= option3 %>
+            <input type="radio" name="option" value="<%= option3 %>">
+            <span class="checkmark"></span>
+          </label>
+          <label class="container"><%= option4 %>
+            <input type="radio" name="option" value="<%= option4 %>">
+            <span class="checkmark"></span>
+          </label>
+          
+          <button type="submit" class="btn btn-dark">Next</button>
+</form>
+      </p>
+    </div>
+  </div>
+
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,36 @@
+<%- include("partials/header") -%>
+
+
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Instructions</h1>
+    <p class="lead">
+
+        <ul>
+            <li></li>
+            <br>
+            <li></li>
+            <br>
+            <li></li>
+            <br>
+            <li></li>
+            <br>
+            <li></li>
+            <br>    
+        </ul>
+
+    <form action="/start/<%= userId %>/" method="POST">
+        <label class="container">I agree
+            <input type="radio" name="option" value="true">
+            <span class="checkmark"></span>
+        </label>
+        <button type="submit" class="btn btn-dark">Next</button>
+    </form>
+
+    </p>
+    </div>
+</div>
+
+<%- include("partials/footer") -%>
