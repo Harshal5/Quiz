@@ -13,6 +13,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+app.use(express.static(__dirname + '/public'));
+
 app.use(session({
     secret: "Our little secret",
     resave: false,
@@ -68,7 +70,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/", function(req, res){
-    res.send("Hello");
+    res.render("home");
 });
 
 
@@ -212,7 +214,6 @@ app.post("/start/:userId", function(req, res){
     let questionId = 0;
     if(req.body.option){
 
-
         User.findById(userId, function(err, currentUser){
         if(!err){
             questionId =currentUser.remaining[0]._id;
@@ -220,7 +221,6 @@ app.post("/start/:userId", function(req, res){
         }
        });
     }
-    //res.redirect("/quiz/" + userId + "/" + )
     
 });
 
@@ -267,27 +267,6 @@ app.post("/quiz/:userId/:questionId", function(req, res){
     const questionId = req.params.questionId;
     const markedAnswer = req.body.option;
 
-
-    // User.findById(userId, function(err, currentUser){
-    //     if(!err){
-    //        currentUser.updateOne({'questions._id': questionId}, {'$set': {
-    //            'questions.$.marked' : markedAnswer,
-    //            'questions.$.attempt' : true
-    //        }},function(err){
-    //             if(err){
-    //                 console.log(err);
-    //             }
-    //        });
-    //     }
-    // });
-
-    // User.findById(userId, function(err, delUser){
-    //     if(!err){
-    //         console.log(delUser.remaining);
-            
-    //     }
-    // });
-
     User.updateOne({"_id":userId, "questions._id": questionId},
     {$set: {
         "questions.$.marked" : markedAnswer, "questions.$.attempt" : true
@@ -319,10 +298,6 @@ app.post("/quiz/:userId/:questionId", function(req, res){
             }
         });
     });
-
-
-
-
     
     User.findById(userId, function(err, foundUser){
         try{
@@ -335,52 +310,7 @@ app.post("/quiz/:userId/:questionId", function(req, res){
         }
     });
 
-
-    
-    // User.findById(userId,function(err, currentUser){
-    //  if(!err){
-    //     questionsArr = currentUser.questions; 
-        // questionsArr.forEach(function(eachQuestion){
-        //     if(eachQuestion.attempt == false){
-        //         questionId = eachQuestion._id;
-        //         //res.redirect("/quiz/"+userId+"/"+questionId);
-        //         console.log("/quiz/"+userId+"/"+questionId);
-        //     }
-        // });
-    //     async.each(questionsArr, function(each){
-    //         checkAttempt = each.attempt;
-    //         //console.log(checkAttempt);
-    //         var newQuestionId = each._id; 
-    //         if(checkAttempt == false){
-    //             res.redirect("/quiz/"+userId+"/"+newQuestionId);
-    //         }
-    //     });
-    //     res.send("asd");
-    //  }
-    // });
-    
-
-    
-
-
-// console.log(questionsArr);
-        // questionsArr.forEach(function(each){
-        //     checkAttempt = each.attempt;
-        //     console.log(checkAttempt);
-        //     var newQuestionId = each._id; 
-        //     if(checkAttempt == false){
-        //         res.redirect("/quiz/"+userId+"/"+newQuestionId);
-        //     } 
-        // });
-
-
-
-
-
-//    res.send("finished");
-    //res.redirect("/addQuestion");
 });
-
 
 
 
